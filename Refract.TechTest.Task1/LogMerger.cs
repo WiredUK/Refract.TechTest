@@ -7,6 +7,7 @@ namespace Refract.TechTest.Task1
     public class LogMerger
     {
         /// <summary>
+        /// Merge a series of log files into a single output
         /// The naive solution here would be to load all files, parse the lines into C# objects with date and log text, chuck them into a big list, sort it and the write to a file
         /// That would work fine but potentially have a huge memory cost so would be a bad approach.
         /// Instead we can rely on <see cref="System.IO.StreamReader.ReadLine"/> to only give us the files line by line.
@@ -19,6 +20,21 @@ namespace Refract.TechTest.Task1
         ///         o Consider that entire file corrupt and no longer continue processing it
         ///         o Output everything that was valid up to that point
         ///         o Just throw an exception - this is what I have chosen
+        /// </summary>
+        /// <param name="outputPath">The path to write the output log to</param>
+        /// <param name="sourcePaths">An array of log files paths to read</param>
+        public void MergeLogFiles(string outputPath, params string[] sourcePaths)
+        {
+            var outputStream = new FileStream(outputPath, FileMode.CreateNew);
+            var sourceLogFiles = sourcePaths
+                .Select(p => new FileStream(p, FileMode.Open))
+                .ToArray();
+
+            MergeLogFiles(outputStream, sourceLogFiles);
+        }
+
+        /// <summary>
+        /// Merge a series of log files into a single output. 
         /// </summary>
         /// <param name="outputStream">The stream to write the logs to</param>
         /// <param name="sourceLogFiles">An array of log files to read</param>
