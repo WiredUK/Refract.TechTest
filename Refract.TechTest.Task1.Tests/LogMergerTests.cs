@@ -37,6 +37,36 @@ namespace Refract.TechTest.Task1.Tests
         }
 
         [Fact]
+        public void Can_merge_files_files_with_logs_of_different_lengths()
+        {
+            // Arrange
+            var merger = new LogMerger();
+
+            using var output = new MemoryStream();
+
+            var log1 = GetStreamFromLogs(
+                "2010-01-01 00:00:01.000 Item1");
+
+            var log2 = GetStreamFromLogs(
+                "2010-01-01 00:00:02.000 Item2",
+                "2010-01-01 00:00:03.000 Item3",
+                "2010-01-01 00:00:04.000 Item4");
+
+            // Act
+            merger.MergeLogFiles(output, log1, log2);
+
+            var reader = new StreamReader(output);
+            output.Position = 0;
+
+            // Assert
+            for (var n = 1; n <= 4; n++)
+            {
+                var logEntry = reader.ReadLine();
+                Assert.Equal($"2010-01-01 00:00:0{n}.000 Item{n}", logEntry);
+            }
+        }
+
+        [Fact]
         public void Invalid_date_format_will_throw_exception()
         {
             // Arrange

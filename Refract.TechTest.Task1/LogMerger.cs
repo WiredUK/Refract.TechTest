@@ -29,7 +29,7 @@ namespace Refract.TechTest.Task1
                 .Select(sourceLogFile => new LogFile(sourceLogFile))
                 .ToList();
 
-            var outputFile = new StreamWriter(outputStream);
+            using var outputWriter = new StreamWriter(outputStream, leaveOpen: true);
             
             LogEntry earliestLog;
 
@@ -39,12 +39,12 @@ namespace Refract.TechTest.Task1
 
                 if (earliestLog != null)
                 {
-                    outputFile.WriteLine(earliestLog.RawLog);
+                    outputWriter.WriteLine(earliestLog.RawLog);
                 }
 
             } while (earliestLog != null);
             
-            outputFile.Flush();
+            outputWriter.Flush();
         }
 
         /// <summary>
