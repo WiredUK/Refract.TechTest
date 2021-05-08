@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Refract.TechTest.Task2.Benchmarks.Benchmarks-20210508-144653</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19042
+Intel Core i7-1065G7 CPU 1.30GHz, 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.201
+  [Host]     : .NET Core 5.0.4 (CoreCLR 5.0.421.11614, CoreFX 5.0.421.11614), X64 RyuJIT
+  DefaultJob : .NET Core 5.0.4 (CoreCLR 5.0.421.11614, CoreFX 5.0.421.11614), X64 RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>      Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Min</th><th>Max</th><th>Ratio</th><th>RatioSD</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>TaskWithLoop</td><td>242.2 ns</td><td>4.81 ns</td><td>7.20 ns</td><td>230.1 ns</td><td>258.8 ns</td><td>1.00</td><td>0.00</td><td>0.0362</td><td>-</td><td>-</td><td>152 B</td>
+</tr><tr><td>TaskWithEnumerable</td><td>234.6 ns</td><td>2.00 ns</td><td>1.67 ns</td><td>232.2 ns</td><td>237.6 ns</td><td>0.96</td><td>0.04</td><td>0.0362</td><td>-</td><td>-</td><td>152 B</td>
+</tr><tr><td>TaskWithGoto</td><td>232.7 ns</td><td>4.67 ns</td><td>6.07 ns</td><td>223.6 ns</td><td>243.5 ns</td><td>0.96</td><td>0.03</td><td>0.0362</td><td>-</td><td>-</td><td>152 B</td>
+</tr><tr><td>TaskWithRecursion</td><td>384.7 ns</td><td>6.66 ns</td><td>5.91 ns</td><td>374.0 ns</td><td>396.3 ns</td><td>1.58</td><td>0.07</td><td>0.0877</td><td>-</td><td>-</td><td>368 B</td>
+</tr></tbody></table>
+</body>
+</html>
