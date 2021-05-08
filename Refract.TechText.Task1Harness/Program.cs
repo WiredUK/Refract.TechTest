@@ -19,6 +19,18 @@ namespace Refract.TechText.Task1Harness
             using var outputStream = new MemoryStream();
 
             logMerger.MergeLogFiles(outputStream, files);
+
+            outputStream.Position = 0;
+
+            using var streamReader = new StreamReader(outputStream);
+
+            var logEntry = streamReader.ReadLine();
+
+            while (logEntry != null)
+            {
+                Console.WriteLine(logEntry);
+                logEntry = streamReader.ReadLine();
+            }
         }
 
         private static Stream GetStreamForFile(string path)
